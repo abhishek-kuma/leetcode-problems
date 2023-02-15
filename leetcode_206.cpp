@@ -1,35 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
-struct ListNode {
+struct TreeNode {
     int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
-ListNode* reverseList(ListNode* head) {
-    if(head==nullptr or head->next == nullptr){
-        return head;
-    }
-        stack<int> s;
-        ListNode * curr=head;
-        while (curr!=nullptr)
-        {
-            s.push(curr->val);
-            curr=curr->next;
-            /* code */
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+  };
+  class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root==nullptr){
+            return root;
         }
-        ListNode *solution=head;
-        while (!s.empty())
-        {
-            head->val=s.top();
-            s.pop();
-            head=head->next;
+             if(root!=nullptr){
+            invertTree(root->left);
+            invertTree(root->right);
+                TreeNode *tempnode=root->left;
+                root->left=root->right;
+                root->right=tempnode;
+            
+
         }
-        return solution;
+        return root;
         
     }
-int main()
-{
-    return 0;
-}
+};
